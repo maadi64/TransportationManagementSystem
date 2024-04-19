@@ -1,0 +1,83 @@
+﻿@using TMS.Application.ViewModels
+@using TMS.Common.Enums
+@model VehicleMaintenanceHistoryViewModel
+<h1 class="mb-5">
+    Vehicle Maintenance Cost History
+</h1>
+
+<div class="row text-danger">
+    @if (ViewBag.ValidationErrors != null && ViewBag.ValidationErrors.Count > 0)
+    {
+        <p>Please fill the following fields</p>
+        <div class="validation-summary-errors">
+            <ul>
+                @foreach (var error in ViewBag.ValidationErrors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+<form action="/VehiclesMaintenance/Create" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="mb-3">
+        <label class="form-label" for="VehicleId">Vehicle ID:</label>
+        <select class="form-control" id="MaintenanceType" name="VehicleId" required>
+            @foreach (var vehicle in (List<VehicleViewModel>)ViewBag.Vehicles)
+            {
+                if (Model.VehicleId == vehicle.Id)
+                {
+                    <option selected value="@vehicle.Id">@vehicle.Make</option>
+
+                }
+                else
+                {
+                    <option value="@vehicle.Id">@vehicle.Make</option>
+
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Expenses">Amount:</label>
+        <input class="form-control" type="number" id="Expenses" name="Expenses" step="0.01" value="@Model.Expenses" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="ExpenseDate">Expense Date:</label>
+        <input class="form-control" type="date" id="ExpenseDate" name="ExpenseDate" value="@Model.ExpenseDate.ToString("yyyy-MM-dd")" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Description">Description:</label>
+        <input class="form-control" type="text" id="Description" name="Description" value="@Model.Description" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="MaintenanceType">Maintenance Type:</label>
+        <select class="form-control" id="MaintenanceType" name="MaintenanceType" required>
+            @foreach (var maintenanceType in Enum.GetValues(typeof(MaintenanceType)))
+            {
+                if (Model.MaintenanceType == (MaintenanceType)maintenanceType)
+                {
+                    <option selected value="@((int)maintenanceType)">@maintenanceType.ToString()</option>
+
+                }
+                else
+                {
+                    <option value="@((int)maintenanceType)">@maintenanceType.ToString()</option>
+
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Notes">Notes:</label>
+        <textarea class="form-control" id="Notes" name="Notes">@Model.Notes</textarea>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/VehiclesMaintenance" class="btn btn-danger">Cancel</a>
+    </div>
+</form>
+
+

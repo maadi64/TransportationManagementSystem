@@ -1,0 +1,35 @@
+﻿@using TMS.Application.ViewModels
+@model List<VehicleMaintenanceHistoryViewModel>
+<div class="row">
+    <a href="/vehiclesmaintenance/create"> Add New Maintenance Cost</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Vehicle Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Amount</th>
+            <th scope="col">MaintenanceType</th>
+            <th scope="col">Description</th>
+            <th scope="col">Notes</th>
+            <th scope="col" colspan="2">Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.VehicleId</td>
+                <td>@item.ExpenseDate.ToShortDateString()</td>
+                <td>@item.Expenses</td>
+                <td>@item.MaintenanceType.ToString()</td>
+                <td>@item.Description</td>
+                <td>@item.Notes</td>
+                <td>
+                    <a href="/vehiclesmaintenance/create/@item.Id" class="btn btn-primary">Edit</a>
+                    <a href="/vehiclesmaintenance/delete/@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,76 @@
+﻿@using TMS.Application.ViewModels
+@model VehicleViewModel
+<h1 class="mb-5">
+    Vehicle
+</h1>
+
+<div class="row text-danger">
+    @if (ViewBag.ValidationErrors != null && ViewBag.ValidationErrors.Count > 0)
+    {
+        <p>Please fill the following fields</p>
+        <div class="validation-summary-errors">
+            <ul>
+                @foreach (var error in ViewBag.ValidationErrors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+<form action="/Vehicles/Create" method="post">
+    <input class="form-control" type="hidden" name="Id" value="@Model.Id"/>
+    <div class="mb-3">
+        <label class="form-label" for="Make">Make</label>
+        <input class="form-control" type="text" id="Make" name="Make" value="@Model.Make" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Model">Model</label>
+        <input class="form-control" type="text" id="Model" name="Model" value="@Model.Model" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Color">Color</label>
+        <input class="form-control" type="text" id="Color" name="Color" value="@Model.Color" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Year">Year</label>
+        <input class="form-control" type="number" id="Year" name="Year" value="@Model.Year" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Rego">Registration (Rego)</label>
+        <input class="form-control" type="text" id="Rego" name="Rego" value="@Model.Rego" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Rent">Rent</label>
+        <input class="form-control" type="number" id="Rent" name="Rent" step="0.01" value="@Model.Rent" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Bond">Bond</label>
+        <input class="form-control" type="number" id="Bond" name="Bond" step="0.01" value="@Model.Bond" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="FuelType">Fuel Type</label>
+        <select class="form-control" id="FuelType" name="FuelType" value="@Model.FuelType" required>
+            <option value="1">Electric</option>
+            <option value="2">Petrol</option>
+            <option value="3">Hybrid</option>
+            <option value="4">Diesel</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="Mileage">Mileage</label>
+        <input class="form-control" type="number" id="Mileage" name="Mileage" step="0.01" value="@Model.Mileage" required>
+    </div>
+    <div class="mb-3">
+        <input class="form-check-input" type="checkbox" id="IsAvailable" name="IsAvailable" value="true" @(Model.IsAvailable ? "checked" : "")>
+        <label class="form-check-label" for="IsAvailable">Available</label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="EngineCapacity">Engine Capacity</label>
+        <input class="form-control" type="text" id="EngineCapacity" name="EngineCapacity" value="@Model.EngineCapacity" required>
+    </div>
+    <div class="mb-3">
+        <input class="btn btn-primary" type="submit" value="Submit">
+        <a class="btn btn-danger" href="/Vehicles">Cancel</a>
+    </div>
+</form>
